@@ -56,8 +56,8 @@ public class Mesto implements OpstiDomenskiObjekat, Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + Objects.hashCode(this.postanskiBroj);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.postanskiBroj);
         return hash;
     }
 
@@ -73,8 +73,10 @@ public class Mesto implements OpstiDomenskiObjekat, Serializable {
             return false;
         }
         final Mesto other = (Mesto) obj;
-        return this.postanskiBroj == other.postanskiBroj;
+        return Objects.equals(this.postanskiBroj, other.postanskiBroj);
     }
+
+    
 
     @Override
     public String toString() {
