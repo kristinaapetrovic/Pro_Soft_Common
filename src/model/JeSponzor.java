@@ -107,12 +107,12 @@ public class JeSponzor implements OpstiDomenskiObjekat, Serializable{
 
     @Override
     public String vratiVrednostiAtributa() {
-        return "("+projekat.getRegBroj()+",'"+sponzor.getMaticniBroj()+"',"+robni+","+novcani+","+iznos+")";
+        return "('"+projekat.getRegBroj()+"','"+sponzor.getMaticniBroj()+"',"+robni+","+novcani+","+iznos+")";
     }
 
     @Override
     public String postaviVrednostiAtributa() {
-        return "regBroj="+projekat.getRegBroj()+",maticniBroj='"+sponzor.getMaticniBroj()+"',robni="+robni+",novcani="+novcani+",iznos="+iznos;
+        return "regBroj='"+projekat.getRegBroj()+"',maticniBroj='"+sponzor.getMaticniBroj()+"',robni="+robni+",novcani="+novcani+",iznos="+iznos;
     }
 
     @Override
@@ -122,12 +122,12 @@ public class JeSponzor implements OpstiDomenskiObjekat, Serializable{
 
     @Override
     public String vratiUslovZaNadjiSlog() {
-        return "regBroj="+projekat.getRegBroj()+" AND maticniBroj='"+sponzor.getMaticniBroj()+"'";
+        return "regBroj='"+projekat.getRegBroj()+"' AND maticniBroj='"+sponzor.getMaticniBroj()+"'";
     }
 
     @Override
     public String vratiUslovZaNadjiSlogove() {
-        return "regBroj="+projekat.getRegBroj()+" OR maticniBroj='"+sponzor.getMaticniBroj()+"'";
+        return "regBroj='"+projekat.getRegBroj()+"' OR maticniBroj='"+sponzor.getMaticniBroj()+"'";
     }
 
     @Override

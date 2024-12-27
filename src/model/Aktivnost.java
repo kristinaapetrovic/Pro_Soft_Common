@@ -138,7 +138,7 @@ public class Aktivnost implements OpstiDomenskiObjekat, Serializable {
         if (datum != null) {
             return "(" + projektniUgovor.getRegBroj() + "," + redniBroj + ",'" + nazivAktivnosti + "','" + opisAktivnosti + "'," + obavljena + "," + vrstaAktivnosti.getIdVrstaAktivnosti() + ",'" + datum + "')";
         }
-        return "(" + projektniUgovor.getRegBroj() + "," + redniBroj + ",'" + nazivAktivnosti + "','" + opisAktivnosti + "'," + obavljena + "," + vrstaAktivnosti.getIdVrstaAktivnosti() + "," + null + ")";
+        return "('" + projektniUgovor.getRegBroj() + "'," + redniBroj + ",'" + nazivAktivnosti + "','" + opisAktivnosti + "'," + obavljena + "," + vrstaAktivnosti.getIdVrstaAktivnosti() + "," + null + ")";
     }
 
     @Override
@@ -157,12 +157,12 @@ public class Aktivnost implements OpstiDomenskiObjekat, Serializable {
 
     @Override
     public String vratiUslovZaNadjiSlog() {
-        return "regBroj=" + projektniUgovor.getRegBroj() + " AND redniBroj=" + redniBroj;
+        return "regBroj='" + projektniUgovor.getRegBroj() + "' AND redniBroj=" + redniBroj;
     }
 
     @Override
     public String vratiUslovZaNadjiSlogove() {
-        return "regBroj=" + projektniUgovor.getRegBroj();
+        return "regBroj='" + projektniUgovor.getRegBroj()+"'";
     }
 
     @Override
