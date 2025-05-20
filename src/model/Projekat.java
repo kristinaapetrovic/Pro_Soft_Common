@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 
 /**
  *
@@ -27,12 +29,12 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
     private java.util.Date datumPocetka;
     private java.util.Date datumZavrsetka;
     private Menadzer menadzer;
-    private boolean zavrsen;
+
 
     public Projekat() {
     }
 
-    public Projekat(String regBroj, String nazivProjekta, String opisProjekta, double budzet, int trajanje, Date datumPocetka, Date datumZavrsetka, Menadzer menadzer, boolean zavrsen) {
+    public Projekat(String regBroj, String nazivProjekta, String opisProjekta, double budzet, int trajanje, Date datumPocetka, Date datumZavrsetka, Menadzer menadzer) {
         this.regBroj = regBroj;
         this.nazivProjekta = nazivProjekta;
         this.opisProjekta = opisProjekta;
@@ -41,7 +43,7 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
         this.datumPocetka = datumPocetka;
         this.datumZavrsetka = datumZavrsetka;
         this.menadzer = menadzer;
-        this.zavrsen = zavrsen;
+       
     }
 
     public String getOpisProjekta() {
@@ -108,13 +110,7 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
         this.menadzer = menadzer;
     }
 
-    public boolean isZavrsen() {
-        return zavrsen;
-    }
-
-    public void setZavrsen(boolean zavrsen) {
-        this.zavrsen = zavrsen;
-    }
+    
 
     @Override
     public int hashCode() {
@@ -154,7 +150,7 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
     public String vratiVrednostiAtributa() {
         java.sql.Date datumOD = new java.sql.Date(datumPocetka.getTime());
         java.sql.Date datumDO = new java.sql.Date(datumZavrsetka.getTime());
-        return "('" + regBroj + "','" + nazivProjekta + "','" + opisProjekta + "'," + budzet + "," + trajanje + ",'" + datumOD + "','" + datumDO + "'," + zavrsen + ",'" + menadzer.getJmbg() + "')";
+        return "('" + regBroj + "','" + nazivProjekta + "','" + opisProjekta + "'," + budzet + "," + trajanje + ",'" + datumOD + "','" + datumDO + "','" + menadzer.getJmbg() + "')";
 
     }
 
@@ -162,12 +158,12 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
     public String postaviVrednostiAtributa() {
         java.sql.Date datumOD = new java.sql.Date(datumPocetka.getTime());
         java.sql.Date datumDO = new java.sql.Date(datumZavrsetka.getTime());
-        return "regBroj='" + regBroj + "',nazivProjekta='" + nazivProjekta + "',opisProjekta='" + opisProjekta + "',budzet=" + budzet + ",trajanje=" + trajanje + ",datumPocetka='" + datumOD + "',datumZavrsetka='" + datumDO + "',zavrsen=" + zavrsen + ",jmbg='" + menadzer.getJmbg() + "'";
+        return "regBroj='" + regBroj + "',nazivProjekta='" + nazivProjekta + "',opisProjekta='" + opisProjekta + "',budzet=" + budzet + ",trajanje=" + trajanje + ",datumPocetka='" + datumOD + "',datumZavrsetka='" + datumDO + "',jmbg='" + menadzer.getJmbg() + "'";
     }
 
     @Override
     public String vratiListuAtributa() {
-        return "(regBroj,nazivProjekta,opisProjekta,budzet,trajanje,datumPocetka,datumZavrsetka,zavrsen,jmbg)";
+        return "(regBroj,nazivProjekta,opisProjekta,budzet,trajanje,datumPocetka,datumZavrsetka,jmbg)";
     }
 
     @Override
@@ -201,7 +197,7 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
 
             datumZavrsetka = new java.util.Date(datumDO.getTime());
 
-            zavrsen = rs.getBoolean("zavrsen");
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(Projekat.class.getName()).log(Level.SEVERE, null, ex);
@@ -237,8 +233,7 @@ public class Projekat implements OpstiDomenskiObjekat, Serializable {
                 + "\"trajanje\": " + trajanje + ", "
                 + "\"datumPocetka\": \"" + (sdf.format(datumPocetka)) + "\", "
                 + "\"datumZavrsetka\": \"" + (sdf.format(datumZavrsetka)) + "\", "
-                + "\"menadzer\": \"" + (menadzer.getJmbg()) + "\", "
-                + "\"zavrsen\": " + zavrsen
+                + "\"menadzer\": \"" + (menadzer.getJmbg())+ "\""
                 + "}";
     }
 

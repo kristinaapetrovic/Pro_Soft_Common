@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 
 /**
  *
@@ -32,7 +34,8 @@ public class Menadzer implements OpstiDomenskiObjekat, Serializable {
     public Menadzer() {
     }
 
-    public Menadzer(String jmbg, String imePrezime, String email, String lozinka, Date datumRodjenja, boolean aktivanNalog, boolean prviLog, List<StrucnaSprema> strucnaSprema) {
+    public Menadzer(String jmbg, String imePrezime, String email, String lozinka, Date datumRodjenja, 
+            boolean aktivanNalog, boolean prviLog, List<StrucnaSprema> strucnaSprema) {
         this.jmbg = jmbg;
         this.imePrezime = imePrezime;
         this.email = email;

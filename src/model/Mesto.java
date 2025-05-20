@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 /**
  *
  * @author Korisnik

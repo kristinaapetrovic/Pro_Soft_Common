@@ -4,6 +4,7 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 
 /**
  *
@@ -30,7 +33,8 @@ public class Aktivnost implements OpstiDomenskiObjekat, Serializable {
     public Aktivnost() {
     }
 
-    public Aktivnost(Projekat projektniUgovor, int redniBroj, String nazivAktivnosti, String opisAktivnosti, boolean obavljena, VrstaAktivnosti vrstaAktivnosti, Date datumRealizacije) {
+    public Aktivnost(Projekat projektniUgovor, int redniBroj, String nazivAktivnosti, String opisAktivnosti,
+            boolean obavljena, VrstaAktivnosti vrstaAktivnosti, Date datumRealizacije) {
         this.projektniUgovor = projektniUgovor;
         this.redniBroj = redniBroj;
         this.nazivAktivnosti = nazivAktivnosti;
@@ -147,7 +151,7 @@ public class Aktivnost implements OpstiDomenskiObjekat, Serializable {
         if (datum != null) {
             return "nazivAktivnosti='" + nazivAktivnosti + "',opisAktivnosti='" + opisAktivnosti + "',obavljena=" + obavljena + ",idVrstaAktivnosti=" + vrstaAktivnosti.getIdVrstaAktivnosti() + ", datumRealizacije='" + datum + "'";
         }
-        return "nazivAktivnosti='" + nazivAktivnosti + "',opisAktivnosti='" + opisAktivnosti + "',obavljena=" + obavljena + ",idVrstaAktivnosti=" + vrstaAktivnosti.getIdVrstaAktivnosti() + ", datumRealizacije=" + null;
+        return "nazivAktivnosti='" + nazivAktivnosti + "',opisAktivnosti='" + opisAktivnosti + "',obavljena=" + obavljena + ",idVrstaAktivnosti=" + vrstaAktivnosti.getIdVrstaAktivnosti() + ", datumRealizacije=" + "null";
     }
 
     @Override
@@ -162,7 +166,7 @@ public class Aktivnost implements OpstiDomenskiObjekat, Serializable {
 
     @Override
     public String vratiUslovZaNadjiSlogove() {
-        return "regBroj='" + projektniUgovor.getRegBroj()+"'";
+        return "regBroj='" + projektniUgovor.getRegBroj() + "'";
     }
 
     @Override
@@ -209,13 +213,12 @@ public class Aktivnost implements OpstiDomenskiObjekat, Serializable {
     public String toJson() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return "{"
-                //+ "\"projektniUgovor\": \"" + (projektniUgovor != null ? projektniUgovor.getRegBroj() : "null") + "\", "
                 + "\"redniBroj\": " + redniBroj + ", "
                 + "\"nazivAktivnosti\": \"" + nazivAktivnosti + "\", "
                 + "\"opisAktivnosti\": \"" + opisAktivnosti + "\", "
                 + "\"obavljena\": " + obavljena + ", "
-                //+ "\"vrstaAktivnosti\": \"" + (vrstaAktivnosti.getIdVrstaAktivnosti()) + "\", "
-                + "\"datumRealizacije\": \"" + (sdf.format(datumRealizacije)) + "\""
+                + "\"datumRealizacije\": "
+                + (datumRealizacije == null ? "null" : "\"" + sdf.format(datumRealizacije) + "\"")
                 + "}";
     }
 

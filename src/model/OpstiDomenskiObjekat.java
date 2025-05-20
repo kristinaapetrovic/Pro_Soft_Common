@@ -4,37 +4,51 @@
  */
 package model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.sql.ResultSet;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
+@JsonSubTypes({
+     @JsonSubTypes.Type(value = Mesto.class, name = "Mesto"),
+    @JsonSubTypes.Type(value = Menadzer.class, name = "Menadzer"),
+    @JsonSubTypes.Type(value = StrucnaSprema.class, name = "StrucnaSprema"),
+    @JsonSubTypes.Type(value = Aktivnost.class, name = "Aktivnost"),
+    @JsonSubTypes.Type(value = VrstaAktivnosti.class, name = "VrstaAktivnosti"),
+    @JsonSubTypes.Type(value = JeSponzor.class, name = "JeSponzor"),
+    @JsonSubTypes.Type(value = Sponzor.class, name = "Sponzor"),
+    @JsonSubTypes.Type(value = MSS.class, name = "MSS"),
+    @JsonSubTypes.Type(value = Projekat.class, name = "Projekat")
+})
 /**
  *
  * @author Korisnik
  */
 public interface OpstiDomenskiObjekat extends Serializable {
 
-    public String vratiImeKlase();//za sve
+    public String vratiImeKlase();
 
-    public String vratiVrednostiAtributa(); //za svaki vraca vr, za insert 
+    public String vratiVrednostiAtributa(); 
 
-    public String postaviVrednostiAtributa(); //stavlja vesdnosti atributima, za update
-    
-    public String vratiListuAtributa(); //vraca listu atributa, za insert
-    
-    public String vratiUslovZaNadjiSlog(); //prema primarnom kljucu, vraca jedan tacno read
-    
-    public String vratiUslovZaNadjiSlogove(); //prema spoljnim kljucevima, moze da vrati vise za reda
-    
-    public String primarniKljuc(); //samo vrednost prrim kljuca
-    
-    public boolean Napuni(ResultSet rs); //puni sve osim spoljnjeg kljuca
+    public String postaviVrednostiAtributa(); 
 
-    public String obrazacZaBrisanje(); //posto ne brisemo stvarno, samo postavlja atr obrisano na true obrisano=true
-    
-    public String vratiUslovPostoji(); //samo ispituje primarni kljuc
+    public String vratiListuAtributa(); 
 
-    public String nijeObrisan(); //stavlja obrisan=false
-    
-    public String toJson(); 
-    
+    public String vratiUslovZaNadjiSlog(); 
+
+    public String vratiUslovZaNadjiSlogove(); 
+
+    public String primarniKljuc(); 
+
+    public boolean Napuni(ResultSet rs); 
+
+    public String obrazacZaBrisanje();
+
+    public String vratiUslovPostoji(); 
+
+    public String nijeObrisan();
+
+    public String toJson();
+
 }

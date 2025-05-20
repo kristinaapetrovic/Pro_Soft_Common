@@ -18,6 +18,11 @@ public class Response implements Serializable {
     public Response() {
     }
 
+    public Response(Object odgovor, Exception exc) {
+        this.odgovor = odgovor;
+        this.exc = exc;
+    }
+
     public Response(Object odgovor) {
         this.odgovor = odgovor;
     }
